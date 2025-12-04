@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS631 Deliverable 3</title>
+</head>
+<body>
+
+    <h1>CS631 Project Deliverable 3</h1>
+    <br>
+    <h2>Select a Query to either obtain data information or perform an action on the database</h2>
+    <h3>Only select a single query please</h3>
+    <form id = "form" action="backend.py" method="POST">
+        <h3>Member Queries</h3>
+        <select>
+            <option>Add Member</option>
+            <option>Update Member</option>
+            <option>Remove Member</option>
+
+            <option>Show members who have worked on projects funded by a given grant</option>
+            <option>Show mentorship relations among members who have worked on the same project</option>
+
+            <option>Add Project</option>
+            <option>Update Project</option>
+            <option>Remove Project</option>
+            <option>Display Project Status</option>
+
+            <option>Add Equipment</option>
+            <option>Update Equipment</option>
+            <option>Remove Equipment</option>
+            <option>Display Equipment Status</option>
+
+            <option>Identify the name of the member(s) with the highest number of publications</option>
+            <option>Calculate the average number of student publications per major</option>
+            <option>Find the number of projects that were funded by a grant and were
+                active during a given period of time</option>
+            <option>Find the three most prolific members who have worked on a project funded
+                by a given grant</option>
+
+            <option>Show members who have worked on projects funded by a given grant</option>
+            <option>Show mentorship relations among members who have worked on the same project</option>
+            <option>Show members currently using a given piece of equipment and the projects
+                they are working on</option>
+        </select>
+
+        <label>Member Name</label>
+        <input type="text" />
+
+        <label>Member </label>
+        <input type="text" />
+
+        <br>
+        <button type="submit">Submit Query</button>
+    </form>
+</body>
+</html>
