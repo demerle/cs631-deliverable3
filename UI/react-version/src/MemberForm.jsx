@@ -14,7 +14,7 @@ export default function MemberForm(props) {
             <label>Member ID</label>
             <input type="text"/>
             <br/>
-            {(props.action !== "delete") &&
+            {(props.action !== "delete" && props.action !== "read") &&
             <>
                 <label>Member First Name</label>
                 <input type="text"/>

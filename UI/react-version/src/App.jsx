@@ -5,6 +5,7 @@ import './App.css'
 import MemberForm from "./MemberForm.jsx";
 import ProjectForm from "./ProjectForm.jsx";
 import EquipmentForm from "./EquipmentForm.jsx";
+import GrantForm from "./GrantForm.jsx";
 
 
 
@@ -16,8 +17,6 @@ function App() {
 
     function submit(){
         setQuerySelected(!querySelected)
-        console.log(select)
-        console.log("here1")
         switch (select) {
             case ("1"):
                 setJSX(<MemberForm action={"create"}/>)
@@ -29,8 +28,10 @@ function App() {
                 setJSX(<MemberForm action={"delete"}/>)
                 break;
             case ("4"):
+                setJSX(<GrantForm action={"read"}/>)
                 break;
             case ("5"):
+                setJSX(<ProjectForm action={"read"}/>)
                 break;
             case ("6"):
                 setJSX(<ProjectForm action={"create"}/>)
@@ -57,18 +58,25 @@ function App() {
                 setJSX(<EquipmentForm action={"read"}/>)
                 break;
             case ("14"):
+                setJSX(<MemberForm action={"read"}/>)
                 break;
             case ("15"):
+                setJSX(<h1>Calculated Result: idk</h1>)
                 break;
             case ("16"):
+                setJSX(<GrantForm action={"read"}/>)
                 break;
             case ("17"):
+                setJSX(<GrantForm action={"read"}/>)
                 break;
             case ("18"):
+                setJSX(<GrantForm action={"read"}/>)
                 break;
             case ("19"):
+                setJSX(<ProjectForm action={"read"}/>)
                 break;
             case ("20"):
+                setJSX(<EquipmentForm action={"read"}/>)
                 break;
 
         }
