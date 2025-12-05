@@ -6,6 +6,17 @@ export default function EquipmentForm(props) {
     // throw some error status in the backend and add functionality in here to report "Equipment not found"
 
 
+    const [name, setName] = useState('')
+    const [type, setType] = useState('')
+    const [purchaseDate, setPurchaseDate] = useState('')
+    const [status, setStatus] = useState('')
+
+    function sendData(){
+
+        alert("Query Submitted Successfully")
+        window.location.reload()
+    }
+
     return (
         <>
             <label>Equipment ID</label>
@@ -27,6 +38,8 @@ export default function EquipmentForm(props) {
                     <br/>
                 </>
             }
+            <br/>
+            <button onClick={sendData}>Submit Query</button>
         </>
     )
 }

@@ -6,6 +6,17 @@ export default function ProjectForm(props) {
     // throw some error status in the backend and add functionality in here to report "Project not found"
 
 
+    const [title, setTitle] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [duration, setDuration] = useState('')
+    const [status, setStatus] = useState('')
+
+    function sendData(){
+
+        alert("Query Submitted Successfully")
+        window.location.reload()
+    }
     return (
         <>
             <label>Project ID</label>
@@ -14,21 +25,23 @@ export default function ProjectForm(props) {
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
                     <label>Project title</label>
-                    <input type="text"/>
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
                     <br/>
                     <label>Project Start Date</label>
-                    <input type="datetime"/>
+                    <input type="datetime" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                     <br/>
                     <label>Project End Date</label>
-                    <input type="datetime"/>
+                    <input type="datetime" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
                     <br/>
                     <label>Project Expected Duration</label>
-                    <input type="text"/>
+                    <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)}/>
                     <br/>
                     <label>Project Status</label>
-                    <input type="text"/>
+                    <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
                 </>
             }
+            <br/>
+            <button onClick={sendData}>Submit Query</button>
         </>
     )
 }

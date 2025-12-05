@@ -13,69 +13,69 @@ function App() {
 
     const [JSX, setJSX] = useState(<h1>Default value</h1>)
     const [querySelected, setQuerySelected] = useState(false)
-    const [select, setSelect] = useState("1")
+    const [select, setSelect] = useState(1)
 
     function submit(){
         setQuerySelected(!querySelected)
         switch (select) {
-            case ("1"):
+            case (1):
                 setJSX(<MemberForm action={"create"}/>)
                 break;
-            case ("2"):
+            case (2):
                 setJSX(<MemberForm action={"update"}/>)
                 break;
-            case ("3"):
+            case (3):
                 setJSX(<MemberForm action={"delete"}/>)
                 break;
-            case ("4"):
+            case (4):
                 setJSX(<GrantForm action={"read"}/>)
                 break;
-            case ("5"):
+            case (5):
                 setJSX(<ProjectForm action={"read"}/>)
                 break;
-            case ("6"):
+            case (6):
                 setJSX(<ProjectForm action={"create"}/>)
                 break;
-            case ("7"):
+            case (7):
                 setJSX(<ProjectForm action={"update"}/>)
                 break;
-            case ("8"):
+            case (8):
                 setJSX(<ProjectForm action={"delete"}/>)
                 break;
-            case ("9"):
+            case (9):
                 setJSX(<ProjectForm action={"read"}/>)
                 break;
-            case ("10"):
+            case (10):
                 setJSX(<EquipmentForm action={"create"}/>)
                 break;
-            case ("11"):
+            case (11):
                 setJSX(<EquipmentForm action={"update"}/>)
                 break;
-            case ("12"):
+            case (12):
                 setJSX(<EquipmentForm action={"delete"}/>)
                 break;
-            case ("13"):
+            case (13):
                 setJSX(<EquipmentForm action={"read"}/>)
                 break;
-            case ("14"):
+            case (14):
                 setJSX(<MemberForm action={"read"}/>)
                 break;
-            case ("15"):
+            case (15):
                 setJSX(<h1>Calculated Result: idk</h1>)
                 break;
-            case ("16"):
+            case (16):
                 setJSX(<GrantForm action={"read"}/>)
                 break;
-            case ("17"):
+            case (17):
                 setJSX(<GrantForm action={"read"}/>)
                 break;
-            case ("18"):
+            case (18):
                 setJSX(<GrantForm action={"read"}/>)
                 break;
-            case ("19"):
+            case (19):
                 setJSX(<ProjectForm action={"read"}/>)
                 break;
-            case ("20"):
+            case (20):
                 setJSX(<EquipmentForm action={"read"}/>)
                 break;
 
@@ -93,7 +93,7 @@ function App() {
               <h2>Select a Query to either obtain data information or perform an action on the database</h2>
               <h3>Only select a single query please</h3>
               <form id="form" onSubmit={e => e.preventDefault()}>
-                  <select value={select} id={"select"} onChange={(e) => setSelect(e.target.value)}>
+                  <select value={select} id={"select"} onChange={(e) => setSelect(Number(e.target.value))}>
                       <option value={1}>Add Member</option>
                       <option value={2}>Update Member</option>
                       <option value={3}>Remove Member</option>
