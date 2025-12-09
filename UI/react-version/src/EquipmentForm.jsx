@@ -5,7 +5,7 @@ export default function EquipmentForm(props) {
     // Whenever the API call is implemented. In the update method, whenever a EquipmentID does not exist in the DB,
     // throw some error status in the backend and add functionality in here to report "Equipment not found"
 
-
+    const [id, setId] = useState(-1)
     const [name, setName] = useState('')
     const [type, setType] = useState('')
     const [purchaseDate, setPurchaseDate] = useState('')
@@ -20,21 +20,21 @@ export default function EquipmentForm(props) {
     return (
         <>
             <label>Equipment ID</label>
-            <input type="text"/>
+            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
             <br/>
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
                     <label>Equipment Name</label>
-                    <input type="text"/>
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
                     <br/>
                     <label>Equipment Type</label>
-                    <input type="text"/>
+                    <input type="text" value={type} onChange={(e) => setType(e.target.value)}/>
                     <br/>
                     <label>Purchase Date</label>
-                    <input type="datetime"/>
+                    <input type="text" value={purchaseDate} onChange={(e) => setPurchaseDate(e.target.value)}/>
                     <br/>
                     <label>Equipment Status</label>
-                    <input type="text"/>
+                    <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
                     <br/>
                 </>
             }

@@ -6,7 +6,7 @@ export default function GrantForm(props) {
     // throw some error status in the backend and add functionality in here to report "Project not found"
 
 
-    const [id, setID] = useState("");
+    const [id, setId] = useState(-1);
 
 
 
@@ -19,7 +19,7 @@ export default function GrantForm(props) {
     return (
         <>
             <label>Grant ID</label>
-            <input type="text" value={id} onChange={(e) => setID(e.target.value)}/>
+            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
             <br/>
             <button onClick={sendData}>Submit Query</button>
         </>

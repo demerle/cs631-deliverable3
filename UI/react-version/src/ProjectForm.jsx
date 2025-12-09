@@ -5,7 +5,7 @@ export default function ProjectForm(props) {
     // Whenever the API call is implemented. In the update method, whenever a ProjectID does not exist in the DB,
     // throw some error status in the backend and add functionality in here to report "Project not found"
 
-
+    const [id, setId] = useState(-1)
     const [title, setTitle] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -20,7 +20,7 @@ export default function ProjectForm(props) {
     return (
         <>
             <label>Project ID</label>
-            <input type="text"/>
+            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
             <br/>
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
@@ -28,10 +28,10 @@ export default function ProjectForm(props) {
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
                     <br/>
                     <label>Project Start Date</label>
-                    <input type="datetime" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+                    <input type="text" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                     <br/>
                     <label>Project End Date</label>
-                    <input type="datetime" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
+                    <input type="text" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
                     <br/>
                     <label>Project Expected Duration</label>
                     <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)}/>

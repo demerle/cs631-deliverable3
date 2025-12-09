@@ -2,12 +2,14 @@ import {useEffect, useState} from 'react'
 
 export default function MemberForm(props) {
 
+
+    const [id, setId] = useState(-1);
     const [memberType, setMemberType] = useState("Student");
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [title, setTitle] = useState("");
-    const [studentNumber, setStudentNumber] = useState("");
+    const [studentNumber, setStudentNumber] = useState(0);
     const [academicLevel, setAcademicLevel] = useState("");
     const [major1, setMajor1] = useState("");
     const [major2, setMajor2] = useState("");
@@ -31,7 +33,7 @@ export default function MemberForm(props) {
     return (
         <>
             <label>Member ID</label>
-            <input type="text"/>
+            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
             <br/>
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
@@ -59,7 +61,7 @@ export default function MemberForm(props) {
                         <>
                             <label>Student Number</label>
                             <input type="text" value={studentNumber}
-                                   onChange={(e) => setStudentNumber(e.target.value)}/>
+                                   onChange={(e) => setStudentNumber(Number(e.target.value))}/>
                             <br/>
                             <label>Academic Level</label>
                             <select
