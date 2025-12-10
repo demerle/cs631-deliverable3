@@ -1,8 +1,21 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from services import *
 
+import pyodbc
 
+conn = pyodbc.connect(
+    "Driver={ODBC Driver 17 for SQL Server};"
+    "Server=DESKTOP-GLQL7F2;"
+    "Database=CS631_Proj3;"
+    "Trusted_Connection=yes;"
+)
 
+cursor = conn.cursor()
+
+x = get_busiest_publishers(cursor)
+for row in x:
+    print(row)
 app = FastAPI()
 
 class Item(BaseModel):
@@ -165,7 +178,7 @@ def list_items(limit: int = 10):
 @app.get("/items/{item_id}", response_model=Item)
 def get_item(item_id: int) -> Item:
     if item_id < len(items):
-        return items[items_id]
+        return items[item_id]
     else:
         raise HTTPException(status_code=404, detail="Item not found")
     
