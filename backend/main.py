@@ -1,7 +1,7 @@
+from aiohttp.web_exceptions import HTTPOk
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 from services import *
-
+from entities import *
 import pyodbc
 
 conn = pyodbc.connect(
@@ -13,52 +13,8 @@ conn = pyodbc.connect(
 
 cursor = conn.cursor()
 
-x = get_busiest_publishers(cursor)
-for row in x:
-    print(row)
+
 app = FastAPI()
-
-class Item(BaseModel):
-    name: str
-
-class Member(BaseModel):
-    id: int
-    memberType: str # without a default val, it will auto-validate and throw
-              # a descriptive error if a value is not given in a post req
-    firstName: str
-    last_name: str
-    title: str
-    studentNumber: int
-    academicLevel: str
-    major1: str
-    major2: str
-    major3: str
-    numMajors: int
-    institutionalAffil: str
-    biography: str
-    department: str
-
-
-class Project(BaseModel):
-    id: int
-    title: str
-    startDate: str
-    endDate: str
-    duration: str
-    status: str
-
-
-class Grant(BaseModel):
-    id: int
-
-
-class Equipment(BaseModel):
-    id: int
-    name: str
-    type: str
-    purchaseDate: str
-    status: str
-
 
 
 
@@ -72,28 +28,86 @@ def root():
 
 
 @app.post("/1")
-def problem1(member: Member):
-    return 0
+def problem1(member: Member): # Add member
+    res = insert_lab_member(cursor, member.firstName, member.lastName, member.memberType, member.joinDate)
+    if not res:
+        raise HTTPException(status_code=400, detail="Error during insertion into lab members")
 
+    else:
+        if (member.memberType == "Student"):
+            # This doesnt work: newMember = get_lab_member(cursor, member.firstName, member.lastName)
+            res2 = 0# insert_student(cursor, newMember["MemberID"], member.academicLevel)
+            if not res2:
+                raise HTTPException(status_code=400, detail="Error during insertion into students")
+            else:
+                return HTTPOk
+
+        elif (member.memberType == "Faculty"):
+            res2 = insert_faculty(cursor, member.id, member.department)
+            if not res2:
+                raise HTTPException(status_code=400, detail="Error during insertion into faculty")
+            else:
+                return HTTPOk
+
+        elif (member.memberType == "External Collaborator"):
+            res2 = insert_ext_collab(cursor, member.id, member.institutionalAffil, member.bio)
+            if not res2:
+                raise HTTPException(status_code=400, detail="Error during insertion into ext collaborator")
+            else:
+                return HTTPOk
 
 
 @app.post("/2")
-def problem2(member: Member):
-    return 0
+def problem2(member: Member): #Update Member
+    res = update_lab_member(cursor, member.id, member.firstName, member.lastName, member.memberType, member.joinDate)
+    if not res:
+        raise HTTPException(status_code=400, detail="Error updating member")
+    else:
+        if (member.memberType == "Student"):
+            res2 = update_student(cursor, member.id, member.academicLevel)
+            if not res2:
+                raise HTTPException(status_code=400, detail="Error updating students")
+            else:
+                return HTTPOk
 
+        elif (member.memberType == "Faculty"):
+            res2 = update_faculty(cursor, member.id, member.department)
+            if not res2:
+                raise HTTPException(status_code=400, detail="Error updating faculty")
+            else:
+                return HTTPOk
 
-@app.post("/3")
+        elif (member.memberType == "External Collaborator"):
+            res2 = update_ext_collab(cursor, member.id, member.institutionalAffil, member.bio)
+            if not res2:
+                raise HTTPException(status_code=400, detail="Error updating ext collaborator")
+            else:
+                return HTTPOk
+
+@app.post("/3") #Remove member
 def problem3(member: Member):
-    return 0
+    res = delete_lab_member(cursor, member.id)
+    if not res:
+        raise HTTPException(status_code=400, detail="Error deleting member")
+    else:
+        return HTTPOk
 
-@app.post("/4")
-def problem4(member: Member):
-    return 0
+@app.post("/4") #Show members who have worked on projects funded by a given grant
+def problem4(grant: Grant):
+    res = get_grant_projects_members(cursor, grant.id)
+    if not res:
+        raise HTTPException(status_code=404, detail="Error finding projects/members with given grant")
+    else:
+        return res
 
 
-@app.post("/5")
-def problem5(member: Member):
-    return 0
+@app.get("/5")
+def problem5():
+    res = get_mentors_project_relations(cursor)
+    if not res:
+        raise HTTPException(status_code=404, detail="Error finding projects/members with given grant")
+    else:
+        return res
 
 
 @app.post("/6")
@@ -129,20 +143,33 @@ def problem11(member: Member):
 def problem12(member: Member):
     return 0
 
-@app.post("/13")
-def problem13(member: Member):
-    return 0
+@app.get("/13")
+def problem13(equipment: Equipment):
+    res = get_equipment_status(cursor, equipment.name)
+    if not res:
+        raise HTTPException(status_code=404, detail="Error finding equipment status")
+    else:
+        return res
 
-@app.post("/14")
-def problem14(member: Member):
-    return 0
 
-@app.post("/15")
-def problem15(member: Member):
-    return 0
+@app.get("/14")
+def problem14(): #highest number of publications
+    res = get_busiest_publishers(cursor)
+    if not res:
+        raise HTTPException(status_code=404, detail="Error finding equipment status")
+    else:
+        return res
+
+@app.get("/15")
+def problem15():
+    res = average_pub_per_major(cursor)
+    if not res:
+        raise HTTPException(status_code=404, detail="Error finding equipment status")
+    else:
+        return res
 
 @app.post("/16")
-def problem16(member: Member):
+def problem16(grant: Grant):
     return 0
 
 @app.post("/17")

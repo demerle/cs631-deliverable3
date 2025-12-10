@@ -19,8 +19,8 @@ export default function GrantForm(props) {
     return (
         <>
             <label>Grant ID</label>
-            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
-            <br/>
+            <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
+            <br/><br/>
             <button onClick={sendData}>Submit Query</button>
         </>
     )

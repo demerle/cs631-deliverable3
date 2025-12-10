@@ -20,27 +20,27 @@ export default function ProjectForm(props) {
     return (
         <>
             <label>Project ID</label>
-            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
-            <br/>
+            <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
+            <br/><br/>
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
                     <label>Project title</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                     <label>Project Start Date</label>
-                    <input type="text" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
-                    <br/>
+                    <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+                    <br/><br/>
                     <label>Project End Date</label>
-                    <input type="text" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
-                    <br/>
+                    <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
+                    <br/><br/>
                     <label>Project Expected Duration</label>
                     <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                     <label>Project Status</label>
                     <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
                 </>
             }
-            <br/>
+            <br/><br/>
             <button onClick={sendData}>Submit Query</button>
         </>
     )

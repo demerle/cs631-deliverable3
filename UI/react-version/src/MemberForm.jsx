@@ -9,7 +9,8 @@ export default function MemberForm(props) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [title, setTitle] = useState("");
-    const [studentNumber, setStudentNumber] = useState(0);
+    const [joinDate, setJoinDate] = useState("");
+    const [studentNumber, setStudentNumber] = useState(-1);
     const [academicLevel, setAcademicLevel] = useState("");
     const [major1, setMajor1] = useState("");
     const [major2, setMajor2] = useState("");
@@ -32,20 +33,27 @@ export default function MemberForm(props) {
 
     return (
         <>
-            <label>Member ID</label>
-            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
-            <br/>
+            {props.action !== "create" &&
+            <>
+                <label>Member ID</label>
+                <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
+                <br/>
+            </>
+            }
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
                     <label>Member First Name</label>
                     <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                     <label>Member Last Name</label>
                     <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                     <label>Member Title</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
+                    <label>Member Join Date</label>
+                    <input type="datetime-local" value={joinDate} onChange={(e) => setJoinDate(e.target.value)}/>
+                    <br/><br/>
                     <select
                         id="member-type"
                         value={memberType}
@@ -56,13 +64,14 @@ export default function MemberForm(props) {
                         <option value={"Faculty"}>Faculty</option>
                     </select>
 
-                    <br/>
+                    <br/><br/>
+
                     {(memberType === "Student") &&
                         <>
                             <label>Student Number</label>
-                            <input type="text" value={studentNumber}
+                            <input type="text" value={studentNumber === -1 ? "" : studentNumber}
                                    onChange={(e) => setStudentNumber(Number(e.target.value))}/>
-                            <br/>
+                            <br/><br/>
                             <label>Academic Level</label>
                             <select
                                 id="academic-level"
@@ -74,7 +83,7 @@ export default function MemberForm(props) {
                                 <option value={"junior"}>Junior</option>
                                 <option value={"senior"}>Senior</option>
                             </select>
-                            <br/>
+                            <br/><br/>
                             <label>Enter amount of majors</label>
                             <select
                                 id="num-majors"
@@ -85,20 +94,20 @@ export default function MemberForm(props) {
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>
                             </select>
-                            <br/>
+                            <br/><br/>
 
                             <label>Major1</label>
                             <input type="text" value={major1} onChange={(e) => setMajor1(e.target.value)}/>
 
                             {numMajors > 1 && <>
-                                <br/>
+                                <br/><br/>
                                 <label>Major2</label>
                                 <input type="text" value={major2} onChange={(e) => setMajor2(e.target.value)}/>
                             </>
                             }
 
                             {numMajors > 2 && <>
-                                <br/>
+                                <br/><br/>
                                 <label>Major3</label>
                                 <input type="text" value={major3} onChange={(e) => setMajor3(e.target.value)}/>
                             </>
@@ -111,7 +120,7 @@ export default function MemberForm(props) {
                             <label>Institutional Affiliation</label>
                             <input type="text" value={institutionalAffil}
                                    onChange={(e) => setInstitutionalAffil(e.target.value)}/>
-                            <br/>
+                            <br/><br/>
                             <label>Biography</label>
                             <input type="text" value={biography} onChange={(e) => setBiography(e.target.value)}/>
                         </>
@@ -123,7 +132,7 @@ export default function MemberForm(props) {
                             <input type="text" value={department} onChange={(e) => setDepartment(e.target.value)}/>
                         </>
                     }
-                    <br/>
+                    <br/><br/>
                     <button onClick={sendData}>Submit Query</button>
                 </>
             }

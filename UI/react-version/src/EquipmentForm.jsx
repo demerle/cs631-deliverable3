@@ -20,25 +20,25 @@ export default function EquipmentForm(props) {
     return (
         <>
             <label>Equipment ID</label>
-            <input type="text" value={id} onChange={(e) => setId(Number(e.target.value))}/>
-            <br/>
+            <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
+            <br/><br/>
             {(props.action !== "delete" && props.action !== "read") &&
                 <>
                     <label>Equipment Name</label>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                     <label>Equipment Type</label>
                     <input type="text" value={type} onChange={(e) => setType(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                     <label>Purchase Date</label>
-                    <input type="text" value={purchaseDate} onChange={(e) => setPurchaseDate(e.target.value)}/>
-                    <br/>
+                    <input type="datetime-local" value={purchaseDate} onChange={(e) => setPurchaseDate(e.target.value)}/>
+                    <br/><br/>
                     <label>Equipment Status</label>
                     <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
-                    <br/>
+                    <br/><br/>
                 </>
             }
-            <br/>
+            <br/><br/>
             <button onClick={sendData}>Submit Query</button>
         </>
     )
