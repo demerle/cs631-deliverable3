@@ -23,12 +23,22 @@ export default function MemberForm(props) {
 
 
 
-    function sendData(){
+    async function sendData(){
 
+        const res = await axios.get(`http://127.0.0.1:8000/{props.questions}`);
+
+
+        axios.get("http://")
+            .then(res => {
+                setMusicItems(res.data)
+                setDisplayItems(res.data)
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
         alert("Query Submitted Successfully")
         window.location.reload()
     }
-
 
 
     return (

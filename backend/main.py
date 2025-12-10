@@ -13,9 +13,9 @@ conn = pyodbc.connect(
 
 cursor = conn.cursor()
 
-
+x = get_lab_member(cursor,  "Phineas", "Flynn")
+print(x)
 app = FastAPI()
-
 
 
 items = []
@@ -29,32 +29,45 @@ def root():
 
 @app.post("/1")
 def problem1(member: Member): # Add member
-    res = insert_lab_member(cursor, member.firstName, member.lastName, member.memberType, member.joinDate)
-    if not res:
+    memberId = insert_lab_member(cursor, member.firstName, member.lastName, member.memberType, member.joinDate)
+    if not memberId:
         raise HTTPException(status_code=400, detail="Error during insertion into lab members")
 
     else:
-        if (member.memberType == "Student"):
-            # This doesnt work: newMember = get_lab_member(cursor, member.firstName, member.lastName)
-            res2 = 0# insert_student(cursor, newMember["MemberID"], member.academicLevel)
+        if member.memberType == "Student":
+
+            res2 = insert_student(cursor, memberId, member.academicLevel)
             if not res2:
                 raise HTTPException(status_code=400, detail="Error during insertion into students")
             else:
-                return HTTPOk
+                for major in (member.major1, member.major2, member.major3):
+                    if major != "":
+                        res3 = insert_major(cursor, memberId, major)
+                        if not res3:
+                            raise HTTPException(status_code=400, detail="Error during insertion into major")
 
-        elif (member.memberType == "Faculty"):
-            res2 = insert_faculty(cursor, member.id, member.department)
+                return {
+                    "success": True
+                }
+
+
+        elif member.memberType == "Faculty":
+            res2 = insert_faculty(cursor, memberId, member.department)
             if not res2:
                 raise HTTPException(status_code=400, detail="Error during insertion into faculty")
             else:
-                return HTTPOk
+                return {
+                    "success": True
+                }
 
-        elif (member.memberType == "External Collaborator"):
-            res2 = insert_ext_collab(cursor, member.id, member.institutionalAffil, member.bio)
+        elif member.memberType == "External Collaborator":
+            res2 = insert_ext_collab(cursor, memberId, member.institutionalAffil, member.bio)
             if not res2:
                 raise HTTPException(status_code=400, detail="Error during insertion into ext collaborator")
             else:
-                return HTTPOk
+                return {
+                    "success": True
+                }
 
 
 @app.post("/2")

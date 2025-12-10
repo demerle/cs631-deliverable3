@@ -24,9 +24,18 @@ def get_lab_member(cursor, fname: str, lname: str):
 def insert_lab_member(cursor, fname: str, lname: str, mtype: str, join_date) -> bool:
     cursor.execute("{CALL Insert_Lab_Member (?, ?, ?, ?)}", (fname, lname, mtype, join_date))
 
+    has_result = cursor.nextset()
+
+    if not has_result:
+        raise RuntimeError("Insert_Lab_Member returned no result set")
+
+    row = cursor.fetchone()
     cursor.connection.commit()
-    if cursor.rowcount > 0:
-        return
+
+    print(row)
+    if row:
+        return row.MemberID
+
 
 #tested and works
 def update_lab_member(cursor, lab_member_id: int, fname: str, lname: str, mtype: str, join_date) -> bool:
