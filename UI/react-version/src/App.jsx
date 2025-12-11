@@ -19,64 +19,64 @@ function App() {
         setQuerySelected(!querySelected)
         switch (select) {
             case (1):
-                setJSX(<MemberForm action={"create"}/>)
+                setJSX(<MemberForm action={"create"} id = {1} setJSX={setJSX}/>)
                 break;
             case (2):
-                setJSX(<MemberForm action={"update"}/>)
+                setJSX(<MemberForm action={"update"} id = {2} setJSX={setJSX}/>)
                 break;
             case (3):
-                setJSX(<MemberForm action={"delete"}/>)
+                setJSX(<MemberForm action={"delete"} id = {3} setJSX={setJSX}/>)
                 break;
             case (4):
-                setJSX(<GrantForm action={"read"}/>)
+                setJSX(<GrantForm action={"read"} id = {4} setJSX={setJSX}/>)
                 break;
             case (5):
-                setJSX(<ProjectForm action={"read"}/>)
+                setJSX(<ProjectForm action={"read"} id = {5} setJSX={setJSX}/>)
                 break;
             case (6):
-                setJSX(<ProjectForm action={"create"}/>)
+                setJSX(<ProjectForm action={"create"} id = {6} setJSX={setJSX}/>)
                 break;
             case (7):
-                setJSX(<ProjectForm action={"update"}/>)
+                setJSX(<ProjectForm action={"update"} id = {7} setJSX={setJSX}/>)
                 break;
             case (8):
-                setJSX(<ProjectForm action={"delete"}/>)
+                setJSX(<ProjectForm action={"delete"} id = {8} setJSX={setJSX}/>)
                 break;
             case (9):
-                setJSX(<ProjectForm action={"read"}/>)
+                setJSX(<ProjectForm action={"read"} id = {9} setJSX={setJSX}/>)
                 break;
             case (10):
-                setJSX(<EquipmentForm action={"create"}/>)
+                setJSX(<EquipmentForm action={"create"} id = {10} setJSX={setJSX}/>)
                 break;
             case (11):
-                setJSX(<EquipmentForm action={"update"}/>)
+                setJSX(<EquipmentForm action={"update"} id = {11} setJSX={setJSX}/>)
                 break;
             case (12):
-                setJSX(<EquipmentForm action={"delete"}/>)
+                setJSX(<EquipmentForm action={"delete"} id = {12} setJSX={setJSX}/>)
                 break;
             case (13):
-                setJSX(<EquipmentForm action={"read"}/>)
+                setJSX(<EquipmentForm action={"read"} id = {13} setJSX={setJSX}/>)
                 break;
             case (14):
-                setJSX(<MemberForm action={"read"}/>)
+                setJSX(<MemberForm action={"read"} id = {14} setJSX={setJSX}/>)
                 break;
             case (15):
                 setJSX(<h1>Calculated Result: idk</h1>)
                 break;
             case (16):
-                setJSX(<GrantForm action={"read"}/>)
+                setJSX(<GrantForm action={"read"} id = {16} setJSX={setJSX}/>)
                 break;
             case (17):
-                setJSX(<GrantForm action={"read"}/>)
+                setJSX(<GrantForm action={"read"} id = {17} setJSX={setJSX}/>)
                 break;
             case (18):
-                setJSX(<GrantForm action={"read"}/>)
+                setJSX(<GrantForm action={"read"} id = {18} setJSX={setJSX}/>)
                 break;
             case (19):
-                setJSX(<ProjectForm action={"read"}/>)
+                setJSX(<ProjectForm action={"read"} id = {19} setJSX={setJSX}/>)
                 break;
             case (20):
-                setJSX(<EquipmentForm action={"read"}/>)
+                setJSX(<EquipmentForm action={"read"} id = {20} setJSX={setJSX}/>)
                 break;
 
         }

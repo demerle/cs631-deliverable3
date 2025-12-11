@@ -7,7 +7,8 @@ export default function GrantForm(props) {
 
 
     const [id, setId] = useState(-1);
-
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
 
 
     function sendData(){
@@ -21,6 +22,14 @@ export default function GrantForm(props) {
             <label>Grant ID</label>
             <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
             <br/><br/>
+
+            <label>Start Date</label>
+            <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+            <br/><br/>
+            <label>End Date</label>
+            <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
+            <br/><br/>
+
             <button onClick={sendData}>Submit Query</button>
         </>
     )

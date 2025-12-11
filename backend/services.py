@@ -114,6 +114,12 @@ def insert_major(cursor, student_member_id: int, major: str):
     cursor.connection.commit()
     return cursor.rowcount > 0
 
+def update_major(cursor, student_member_id: int, major: str):
+    cursor.execute("{CALL Update_Major (?, ?)}", (student_member_id, major))
+
+    cursor.connection.commit()
+    return cursor.rowcount > 0
+
 def delete_major(cursor, student_member_id: int, major: str):
     cursor.execute("{CALL Delete_Major (?, ?)}", (student_member_id, major))
 
@@ -181,13 +187,13 @@ def get_project_status(cursor, project_title: str):
     return rows[0]
 
 # Grant / Mentor Queries
-def get_grant_projects_members(cursor, grant_id: int) -> list:
+def get_grant_projects_members(cursor, grant_id: int):
     cursor.execute("{CALL Get_Grant_Projects_Members (?)}", grant_id)
 
     rows = fetchall_as_dict(cursor)
     return rows
 
-def get_mentors_project_relations(cursor) -> list:
+def get_mentors_project_relations(cursor):
     cursor.execute("{CALL Get_Mentors_Project_Relations}")
 
     rows = fetchall_as_dict(cursor)
@@ -200,7 +206,7 @@ def get_equipment_status(cursor, equip_name: str):
     rows = fetchall_as_dict(cursor)
     return rows[0]
 
-def get_equipment_users(cursor, equip_name: str)-> list:
+def get_equipment_users(cursor, equip_name: str):
     cursor.execute("{CALL Get_EUsers (?)}", equip_name)
 
     rows = fetchall_as_dict(cursor)

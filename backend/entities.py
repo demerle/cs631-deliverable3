@@ -11,7 +11,6 @@ class Member(BaseModel):
               # a descriptive error if a value is not given in a post req
     firstName: str
     lastName: str
-    title: str
     joinDate: Optional[datetime]
     studentNumber: int
     academicLevel: str
@@ -31,10 +30,13 @@ class Project(BaseModel):
     endDate: Optional[datetime]
     duration: str
     status: str
+    fac_id: int
 
 
 class Grant(BaseModel):
     id: int
+    startDate: Optional[datetime]
+    endDate: Optional[datetime]
 
 
 class Equipment(BaseModel):

@@ -11,11 +11,11 @@ export default function ProjectForm(props) {
     const [endDate, setEndDate] = useState('')
     const [duration, setDuration] = useState('')
     const [status, setStatus] = useState('')
-
+    const [facultyId, setFacultyId] = useState(-1)
     function sendData(){
 
         alert("Query Submitted Successfully")
-        window.location.reload()
+
     }
     return (
         <>
@@ -38,6 +38,9 @@ export default function ProjectForm(props) {
                     <br/><br/>
                     <label>Project Status</label>
                     <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
+                    <br/><br/>
+                    <label>Faculty ID</label>
+                    <input type="text" value={facultyId === -1 ? "" : facultyId} onChange={(e) => setFacultyId(Number(e.target.value))}/>
                 </>
             }
             <br/><br/>

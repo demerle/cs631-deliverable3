@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-
+import axios from "axios";
 export default function MemberForm(props) {
 
 
@@ -8,7 +8,6 @@ export default function MemberForm(props) {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [title, setTitle] = useState("");
     const [joinDate, setJoinDate] = useState("");
     const [studentNumber, setStudentNumber] = useState(-1);
     const [academicLevel, setAcademicLevel] = useState("");
@@ -25,19 +24,27 @@ export default function MemberForm(props) {
 
     async function sendData(){
 
-        const res = await axios.get(`http://127.0.0.1:8000/{props.questions}`);
+        const json = {id, memberType, firstName, lastName, joinDate, studentNumber, academicLevel, major1, major2, major3, numMajors, institutionalAffil, biography, department};
+        if (props.action === "create") {
 
 
-        axios.get("http://")
-            .then(res => {
-                setMusicItems(res.data)
-                setDisplayItems(res.data)
-            })
-            .catch(err => {
-                console.error("Error:", err);
-            });
-        alert("Query Submitted Successfully")
-        window.location.reload()
+            const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
+
+            console.log(res);
+
+
+        }
+        else{
+            axios.get("http://")
+                .then(res => {
+                    setMusicItems(res.data)
+                    setDisplayItems(res.data)
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+        }
+
     }
 
 
@@ -58,9 +65,6 @@ export default function MemberForm(props) {
                     <label>Member Last Name</label>
                     <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
                     <br/><br/>
-                    <label>Member Title</label>
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <br/><br/>
                     <label>Member Join Date</label>
                     <input type="datetime-local" value={joinDate} onChange={(e) => setJoinDate(e.target.value)}/>
                     <br/><br/>
@@ -78,10 +82,13 @@ export default function MemberForm(props) {
 
                     {(memberType === "Student") &&
                         <>
-                            <label>Student Number</label>
-                            <input type="text" value={studentNumber === -1 ? "" : studentNumber}
-                                   onChange={(e) => setStudentNumber(Number(e.target.value))}/>
-                            <br/><br/>
+                            {props.action !== "create" &&
+                            <>
+                                <label>Student Number</label>
+                                <input type="text" value={studentNumber === -1 ? "" : studentNumber}
+                                       onChange={(e) => setStudentNumber(Number(e.target.value))}/>
+                                <br/><br/>
+                            </>}
                             <label>Academic Level</label>
                             <select
                                 id="academic-level"
