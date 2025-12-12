@@ -60,7 +60,7 @@ def get_ext_collab(cursor, ext_collab_id: int):
     return rows
 
 def insert_ext_collab(cursor, ext_collab_id: int, inst_affil: str, bio: str):
-    cursor.execute("{CALL Insert_Lab_Member (?, ?, ?)}", (ext_collab_id, inst_affil, bio))
+    cursor.execute("{CALL Insert_Ext_Collab (?, ?, ?)}", (ext_collab_id, inst_affil, bio))
 
     cursor.connection.commit()
     return cursor.rowcount > 0

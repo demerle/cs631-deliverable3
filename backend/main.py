@@ -71,7 +71,7 @@ def problem1(member: Member): # Add member
                 }
 
         elif member.memberType == "External Collaborator":
-            res2 = insert_ext_collab(cursor, memberId, member.institutionalAffil, member.bio)
+            res2 = insert_ext_collab(cursor, memberId, member.institutionalAffil, member.biography)
             if not res2:
                 raise HTTPException(status_code=400, detail="Error during insertion into ext collaborator")
             else:
