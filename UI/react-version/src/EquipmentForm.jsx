@@ -19,10 +19,22 @@ export default function EquipmentForm(props) {
 
         const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
 
-        if (res) {
-            alert("Query Submitted Successfully")
-            if (props.action === "read")
-                props.setJSX(listToJSX(res.data))
+        try {
+
+
+            if (res) {
+                alert("Query Submitted Successfully")
+                if (props.action === "read")
+                    props.setJSX(listToJSX(res.data))
+            }
+        }
+        catch (e){
+            if (props.action === "read" || props.action === "update" || props.action === "delete") {
+                alert("Equipment not found")
+            }
+            else{
+                alert("Error creating Equipment")
+            }
         }
     }
 

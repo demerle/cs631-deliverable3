@@ -26,13 +26,25 @@ export default function MemberForm(props) {
     async function sendData(){
 
         const json = {id, memberType, firstName, lastName, joinDate, studentNumber, academicLevel, major1, major2, major3, numMajors, institutionalAffil, biography, department};
-        console.log("here1")
-        const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
-        console.log("here2")
-        if (res) {
-            alert("Query Submitted Successfully")
-            if (props.action === "read")
-                props.setJSX(listToJSX(res.data))
+
+        try {
+
+
+            const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
+
+            if (res) {
+                alert("Query Submitted Successfully")
+                if (props.action === "read")
+                    props.setJSX(listToJSX(res.data))
+            }
+        }
+        catch (e){
+            if (props.action === "read" || props.action === "update" || props.action === "delete") {
+                alert("Lab member not found")
+            }
+            else{
+                alert("Error creating Lab Member")
+            }
         }
 
     }

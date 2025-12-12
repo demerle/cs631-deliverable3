@@ -29,6 +29,10 @@ export default function GrantForm(props) {
             }
         }
         catch (e){
+            if (props.action === "read" || props.action === "update" || props.action === "delete") {
+                alert("Grant not found")
+            }
+
             console.log(e)
         }
 

@@ -33,9 +33,14 @@ export default function ProjectForm(props) {
 
         }
         catch(e) {
-            if (e.status === 404) {
+            if (e.status === 404 && props.action !== "create") {
                 alert("Faculty ID Not Found")
-            } else {
+            }
+            else if (props.action === "create"){
+                alert("Error creating Project")
+            }
+            else{
+                alert("Error")
                 console.log("API error:", e)
             }
 

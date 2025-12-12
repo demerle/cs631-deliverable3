@@ -20,10 +20,17 @@ export default function UsageForm(props) {
 
             if (res) {
                 alert("Query Submitted Successfully")
-                props.setJSX(listToJSX(res.data))
+                if (props.action === "read")
+                    props.setJSX(listToJSX(res.data))
             }
         }
         catch (e){
+            if (props.action === "read" || props.action === "update" || props.action === "delete") {
+                alert("Usage not found")
+            }
+            else{
+                alert("Error creating usage")
+            }
             console.log(e)
         }
 
@@ -43,7 +50,7 @@ export default function UsageForm(props) {
                     <input type="datetime-local" value={start_date} onChange={(e) => set_start_date(e.target.value)}/>
                     <br/><br/>
                     <label>End Date</label>
-                    <input type="datetime-local" value={endDate} onChange={(e) => set_end_date(e.target.value)}/>
+                    <input type="datetime-local" value={end_date} onChange={(e) => set_end_date(e.target.value)}/>
                     <br/><br/>
                     <label>Purpose of Use</label>
                     <input type="text" value={purpose} onChange={(e) => setPurpose(e.target.value)}/>
