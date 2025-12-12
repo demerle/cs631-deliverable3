@@ -1,4 +1,5 @@
 import pyodbc
+from fastapi import HTTPException
 
 conn = pyodbc.connect(
     "Driver={ODBC Driver 17 for SQL Server};"
@@ -158,12 +159,17 @@ def get_project(cursor, project_title: str):
     rows = fetchall_as_dict(cursor)
     return rows[0]
 
-def insert_project(cursor, project_title: str, proj_start_date, proj_end_date, proj_expected_duration: str,
-                   proj_status: str, fac_id: int):
-    cursor.execute("{CALL Insert_Project (?, ?, ?, ?, ?, ?)}", (project_title, proj_start_date, proj_end_date , proj_expected_duration, proj_status, fac_id))
+def insert_project(cursor, project_title: str, proj_start_date, proj_end_date, proj_expected_duration: str, proj_status: str, fac_id: int):
 
-    cursor.connection.commit()
-    return cursor.rowcount > 0
+    try:
+        cursor.execute("{CALL Insert_Project (?, ?, ?, ?, ?, ?)}", (project_title, proj_start_date, proj_end_date , proj_expected_duration, proj_status, fac_id))
+
+        cursor.connection.commit()
+        return cursor.rowcount > 0
+    except Exception as e:
+        print(e)
+        cursor.connection.rollback()
+        raise HTTPException(status_code=404, detail=f"Database error: {str(e)}")
 
 
 def update_project(cursor, proj_id: int, project_title: str, proj_start_date, proj_end_date,
@@ -175,16 +181,21 @@ def update_project(cursor, proj_id: int, project_title: str, proj_start_date, pr
     return cursor.rowcount > 0
 
 def delete_project(cursor, proj_id: int):
-    cursor.execute("{CALL Delete_Project (?)}", proj_id)
+    try:
+        cursor.execute("{CALL Delete_Project (?)}", proj_id)
 
-    return cursor.rowcount > 0
+        cursor.connection.commit()
+        return cursor.rowcount > 0
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=404, detail=f"Database error: {str(e)}")
 
 # Project Status
 def get_project_status(cursor, project_title: str):
     cursor.execute("{CALL Get_PStatus (?)}", project_title)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 # Grant / Mentor Queries
 def get_grant_projects_members(cursor, grant_id: int):
@@ -204,7 +215,7 @@ def get_equipment_status(cursor, equip_name: str):
     cursor.execute("{CALL Get_EStatus (?)}", equip_name)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def get_equipment_users(cursor, equip_name: str):
     cursor.execute("{CALL Get_EUsers (?)}", equip_name)
@@ -280,10 +291,15 @@ def average_pub_per_major(cursor):
     return rows
 
 def count_grant_projects_during_interval(cursor, grant_id: int, start_date, end_date):
-    cursor.execute("{CALL Count_Grant_Projects_During_Interval (?, ?, ?}", (grant_id, start_date, end_date))
 
-    rows = fetchall_as_dict(cursor)
-    return rows
+    try:
+        cursor.execute("{CALL Count_Grant_Projects_During_Interval (?, ?, ?)}", (grant_id, start_date, end_date))
+
+        rows = fetchall_as_dict(cursor)
+        return rows
+    except Exception as e:
+        print("\nretard\n")
+        print(e)
 
 def get_prolific_members(cursor, grant_id: int):
     cursor.execute("{CALL Get_Prolific_Members (?)}", grant_id)

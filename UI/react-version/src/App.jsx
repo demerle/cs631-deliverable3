@@ -6,6 +6,7 @@ import MemberForm from "./MemberForm.jsx";
 import ProjectForm from "./ProjectForm.jsx";
 import EquipmentForm from "./EquipmentForm.jsx";
 import GrantForm from "./GrantForm.jsx";
+import NoParamsForm from "./NoParamsForm.jsx";
 
 
 
@@ -31,7 +32,7 @@ function App() {
                 setJSX(<GrantForm action={"read"} id = {4} setJSX={setJSX}/>)
                 break;
             case (5):
-                setJSX(<ProjectForm action={"read"} id = {5} setJSX={setJSX}/>)
+                setJSX(<NoParamsForm action={"read"} id = {5} setJSX={setJSX}/>)
                 break;
             case (6):
                 setJSX(<ProjectForm action={"create"} id = {6} setJSX={setJSX}/>)
@@ -55,25 +56,30 @@ function App() {
                 setJSX(<EquipmentForm action={"delete"} id = {12} setJSX={setJSX}/>)
                 break;
             case (13):
+                console.log(select)
                 setJSX(<EquipmentForm action={"read"} id = {13} setJSX={setJSX}/>)
                 break;
             case (14):
-                setJSX(<MemberForm action={"read"} id = {14} setJSX={setJSX}/>)
+                console.log(select)
+                setJSX(<NoParamsForm action={"read"} id = {14} setJSX={setJSX}/>)
                 break;
             case (15):
-                setJSX(<h1>Calculated Result: idk</h1>)
+                console.log(select)
+                setJSX(<NoParamsForm action={"read"} id = {15} setJSX={setJSX}/>)
                 break;
             case (16):
+                console.log(select)
                 setJSX(<GrantForm action={"read"} id = {16} setJSX={setJSX}/>)
                 break;
             case (17):
+                console.log(select)
                 setJSX(<GrantForm action={"read"} id = {17} setJSX={setJSX}/>)
                 break;
             case (18):
                 setJSX(<GrantForm action={"read"} id = {18} setJSX={setJSX}/>)
                 break;
             case (19):
-                setJSX(<ProjectForm action={"read"} id = {19} setJSX={setJSX}/>)
+                setJSX(<NoParamsForm action={"read"} id = {19} setJSX={setJSX}/>)
                 break;
             case (20):
                 setJSX(<EquipmentForm action={"read"} id = {20} setJSX={setJSX}/>)
@@ -98,8 +104,8 @@ function App() {
                       <option value={2}>Update Member</option>
                       <option value={3}>Remove Member</option>
 
-                      <option value={4}>Show members who have worked on projects funded by a given grant</option>
-                      <option value={5}>Show mentorship relations among members who have worked on the same project</option>
+                      {/*<option value={4}>Show members who have worked on projects funded by a given grant</option>
+                      <option value={5}>Show mentorship relations among members who have worked on the same project</option>*/}
 
                       <option value={6}>Add Project</option>
                       <option value={7}>Update Project</option>

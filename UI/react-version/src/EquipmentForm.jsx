@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import axios from "axios";
+import {listToJSX} from "./utils.jsx";
 
 export default function EquipmentForm(props) {
 
@@ -8,34 +10,48 @@ export default function EquipmentForm(props) {
     const [id, setId] = useState(-1)
     const [name, setName] = useState('')
     const [type, setType] = useState('')
-    const [purchaseDate, setPurchaseDate] = useState('')
+    const [purchaseDate, setPurchaseDate] = useState(null)
     const [status, setStatus] = useState('')
 
-    function sendData(){
+    async function sendData(){
 
-        alert("Query Submitted Successfully")
-        window.location.reload()
+        const json = {id, name, type, purchaseDate, status};
+
+        const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
+
+        if (res) {
+            alert("Query Submitted Successfully")
+            if (props.action === "read")
+                props.setJSX(listToJSX(res.data))
+        }
     }
 
     return (
         <>
-            <label>Equipment ID</label>
-            <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
-            <br/><br/>
-            {(props.action !== "delete" && props.action !== "read") &&
+            {props.action !== "create" && props.action !== "read" &&
+            <>
+                <label>Equipment ID</label>
+                <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
+                <br/><br/>
+            </>
+            }
+            {(props.action !== "delete") &&
                 <>
                     <label>Equipment Name</label>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
                     <br/><br/>
-                    <label>Equipment Type</label>
-                    <input type="text" value={type} onChange={(e) => setType(e.target.value)}/>
-                    <br/><br/>
-                    <label>Purchase Date</label>
-                    <input type="datetime-local" value={purchaseDate} onChange={(e) => setPurchaseDate(e.target.value)}/>
-                    <br/><br/>
-                    <label>Equipment Status</label>
-                    <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
-                    <br/><br/>
+                    {props.action !== "read" &&
+                    <>
+                        <label>Equipment Type</label>
+                        <input type="text" value={type} onChange={(e) => setType(e.target.value)}/>
+                        <br/><br/>
+                        <label>Purchase Date</label>
+                        <input type="datetime-local" value={purchaseDate} onChange={(e) => setPurchaseDate(e.target.value)}/>
+                        <br/><br/>
+                        <label>Equipment Status</label>
+                        <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
+                        <br/><br/>
+                    </>}
                 </>
             }
             <br/><br/>

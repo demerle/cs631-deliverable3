@@ -4,6 +4,8 @@ from services import *
 from entities import *
 import pyodbc
 
+from services import get_major, get_mentors_project_relations
+
 conn = pyodbc.connect(
     "Driver={ODBC Driver 17 for SQL Server};"
     "Server=DESKTOP-GLQL7F2;"
@@ -13,8 +15,6 @@ conn = pyodbc.connect(
 
 cursor = conn.cursor()
 
-x = get_lab_member(cursor,  "Phineas", "Flynn")
-print(x)
 app = FastAPI()
 
 
@@ -143,11 +143,11 @@ def problem4(grant: Grant):
     return res
 
 
-@app.get("/5")
+@app.post("/5")
 def problem5():
     res = get_mentors_project_relations(cursor)
     if not res:
-        raise HTTPException(status_code=404, detail="Error finding projeect/mentor relations")
+        raise HTTPException(status_code=404, detail="Error finding project/mentor relations")
 
     return res
 
@@ -164,8 +164,8 @@ def problem6(project: Project):
 
 @app.post("/7") #Update Project
 def problem7(project: Project):
-    res = update_project(cursor, project.title, project.startDate, project.endDate, project.duration, project.status,
-                         project.fac_id)
+    res = update_project(cursor, project.id, project.title, project.startDate, project.endDate, project.duration, project.status, project.fac_id)
+
     if not res:
         raise HTTPException(status_code=400, detail="Error during updating projects")
 
@@ -176,7 +176,7 @@ def problem7(project: Project):
 
 @app.post("/8") #Remove Project
 def problem8(project: Project):
-    res = delete_lab_member(cursor, project.id)
+    res = delete_project(cursor, project.id)
     if not res:
         raise HTTPException(status_code=400, detail="Error deleting project")
 
@@ -185,7 +185,7 @@ def problem8(project: Project):
     }
 
 
-@app.get("/9") #Display Project Status
+@app.post("/9") #Display Project Status
 def problem9(project: Project):
     res = get_project_status(cursor, project.title)
     if not res:
@@ -216,7 +216,7 @@ def problem11(equip: Equipment):
 
 @app.post("/12") #Remove Equipment
 def problem12(equip: Equipment):
-    res = delete_lab_member(cursor, equip.id)
+    res = delete_equipment(cursor, equip.id)
     if not res:
         raise HTTPException(status_code=400, detail="Error deleting equipment")
 
@@ -224,7 +224,7 @@ def problem12(equip: Equipment):
         "success": True
     }
 
-@app.get("/13") #Display Equipment Status
+@app.post("/13") #Display Equipment Status
 def problem13(equipment: Equipment):
     res = get_equipment_status(cursor, equipment.name)
     if not res:
@@ -233,15 +233,15 @@ def problem13(equipment: Equipment):
         return res
 
 
-@app.get("/14")
-def problem14(): #name of member with the highest number of publications
+@app.post("/14")
+def problem14(): #name of members with the highest number of publications
     res = get_busiest_publishers(cursor)
     if not res:
         raise HTTPException(status_code=404, detail="Error finding equipment status")
     else:
         return res
 
-@app.get("/15") #Calculate the average number of publicatins per major
+@app.post("/15") #Calculate the average number of publications per major
 def problem15():
     res = average_pub_per_major(cursor)
     if not res:
@@ -249,7 +249,7 @@ def problem15():
     else:
         return res
 
-@app.get("/16") #Find the number of project that were funded by a grant and were active during a given period of time
+@app.post("/16") #Find the number of project that were funded by a grant and were active during a given period of time
 def problem16(grant: Grant):
     res = count_grant_projects_during_interval(cursor, grant.id, grant.startDate, grant.endDate)
     if not res:
@@ -257,7 +257,7 @@ def problem16(grant: Grant):
     else:
         return res
 
-@app.get("/17") #Find the three most prolific members who have worked on a project funded by a given grant
+@app.post("/17") #Find the three most prolific members who have worked on a project funded by a given grant
 def problem17(grant: Grant):
     res = get_prolific_members(cursor, grant.id)
     if not res:

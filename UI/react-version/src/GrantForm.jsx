@@ -1,5 +1,6 @@
 import { useState } from 'react'
-
+import axios from "axios";
+import {listToJSX} from "./utils.jsx"
 export default function GrantForm(props) {
 
     // Whenever the API call is implemented. In the update method, whenever a ProjectID does not exist in the DB,
@@ -7,14 +8,28 @@ export default function GrantForm(props) {
 
 
     const [id, setId] = useState(-1);
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
 
 
-    function sendData(){
+    async function sendData(){
 
-        alert("Query Submitted Successfully")
-        window.location.reload()
+
+        const json = {id, startDate, endDate};
+        try{
+            const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
+
+            if (res) {
+                alert("Query Submitted Successfully")
+                if (props.action === "read")
+                    console.log(res.data[0][""])
+                    props.setJSX(listToJSX([{"Amount" : res.data[0][""]}]))
+            }
+        }
+        catch (e){
+            console.log(e)
+        }
+
     }
 
     return (
@@ -22,13 +37,16 @@ export default function GrantForm(props) {
             <label>Grant ID</label>
             <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
             <br/><br/>
-
-            <label>Start Date</label>
-            <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
-            <br/><br/>
-            <label>End Date</label>
-            <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
-            <br/><br/>
+            {(props.id === 16) &&
+            <>
+                <label>Start Date</label>
+                <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+                <br/><br/>
+                <label>End Date</label>
+                <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)}/>
+                <br/><br/>
+            </>
+            }
 
             <button onClick={sendData}>Submit Query</button>
         </>
