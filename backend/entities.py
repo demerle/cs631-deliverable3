@@ -47,4 +47,9 @@ class Equipment(BaseModel):
     purchaseDate: Optional[datetime]
     status: str
 
-
+class Usage(BaseModel):
+    equip_id: int
+    member_id: int
+    start_date: Optional[datetime]
+    end_date: Optional[datetime]
+    purpose: str
