@@ -19,7 +19,6 @@ export default function ProjectForm(props) {
     async function sendData() {
 
         const json = {id, title, startDate, endDate, duration, status, fac_id};
-        console.log("JSON being sent:", json);
 
 
         try {

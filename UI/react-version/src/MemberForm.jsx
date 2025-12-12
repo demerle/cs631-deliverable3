@@ -26,9 +26,9 @@ export default function MemberForm(props) {
     async function sendData(){
 
         const json = {id, memberType, firstName, lastName, joinDate, studentNumber, academicLevel, major1, major2, major3, numMajors, institutionalAffil, biography, department};
-
+        console.log("here1")
         const res = await axios.post(`http://127.0.0.1:8000/${props.id}`, json);
-
+        console.log("here2")
         if (res) {
             alert("Query Submitted Successfully")
             if (props.action === "read")
@@ -40,14 +40,14 @@ export default function MemberForm(props) {
 
     return (
         <>
-            {props.action !== "create" &&
+            {props.action !== "create" && props.action !== "read" &&
                 <>
                     <label>Member ID</label>
                     <input type="text" value={id === -1 ? "" : id} onChange={(e) => setId(Number(e.target.value))}/>
                     <br/><br/>
                 </>
             }
-            {(props.action !== "delete" && props.action !== "read") &&
+            {(props.action !== "delete") &&
                 <>
                     <label>Member First Name</label>
                     <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
@@ -55,18 +55,20 @@ export default function MemberForm(props) {
                     <label>Member Last Name</label>
                     <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
                     <br/><br/>
-                    <label>Member Join Date</label>
-                    <input type="datetime-local" value={joinDate} onChange={(e) => setJoinDate(e.target.value)}/>
-                    <br/><br/>
-                    <select
-                        id="member-type"
-                        value={memberType}
-                        onChange={(e) => setMemberType(e.target.value)}
-                    >
-                        <option value={"Student"}>Student</option>
-                        <option value={"External Collaborator"}>External Collaborator</option>
-                        <option value={"Faculty"}>Faculty</option>
-                    </select>
+                    {props.action !== "read" &&
+                    <>
+                        <label>Member Join Date</label>
+                        <input type="datetime-local" value={joinDate} onChange={(e) => setJoinDate(e.target.value)}/>
+                        <br/><br/>
+                        <select
+                            id="member-type"
+                            value={memberType}
+                            onChange={(e) => setMemberType(e.target.value)}
+                        >
+                            <option value={"Student"}>Student</option>
+                            <option value={"External Collaborator"}>External Collaborator</option>
+                            <option value={"Faculty"}>Faculty</option>
+                        </select>
 
                     <br/><br/>
 
@@ -139,6 +141,7 @@ export default function MemberForm(props) {
                             <input type="text" value={department} onChange={(e) => setDepartment(e.target.value)}/>
                         </>
                     }
+                    </>}
                 </>
             }
             <br/><br/>

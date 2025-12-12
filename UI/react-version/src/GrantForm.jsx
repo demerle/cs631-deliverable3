@@ -21,9 +21,11 @@ export default function GrantForm(props) {
 
             if (res) {
                 alert("Query Submitted Successfully")
-                if (props.action === "read")
-                    console.log(res.data[0][""])
+                if (props.id === 16)
                     props.setJSX(listToJSX([{"Amount" : res.data[0][""]}]))
+                else{
+                    props.setJSX(listToJSX(res.data))
+                }
             }
         }
         catch (e){

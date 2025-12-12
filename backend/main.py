@@ -290,7 +290,7 @@ def problem20(equip: Equipment):
         return res
 
 
-@app.post("21")
+@app.post("/21")
 def problem21(member: Member):
     res = get_lab_member(cursor, member.firstName, member.lastName)
     if not res:
@@ -298,7 +298,7 @@ def problem21(member: Member):
     else:
         return res
 
-@app.post("22")
+@app.post("/22")
 def problem22(project: Project):
     res = get_project(cursor, project.title)
     if not res:
@@ -306,7 +306,7 @@ def problem22(project: Project):
     else:
         return res
 
-@app.post("23")
+@app.post("/23")
 def problem23(equip: Equipment):
     res = get_equipment(cursor, equip.name)
     if not res:
@@ -314,7 +314,7 @@ def problem23(equip: Equipment):
     else:
         return res
 
-@app.post("24")
+@app.post("/24")
 def problem24(usage: Usage):
     res = get_usage(cursor, usage.equip_id, usage.member_id)
     if not res:
@@ -322,7 +322,7 @@ def problem24(usage: Usage):
     else:
         return res
 
-@app.post("25")
+@app.post("/25")
 def problem25(usage: Usage):
     res = insert_usage(cursor, usage.equip_id, usage.start_date, usage.end_date, usage.purpose, usage.member_id)
     if not res:
@@ -330,7 +330,7 @@ def problem25(usage: Usage):
     else:
         return res
 
-@app.post("26")
+@app.post("/26")
 def problem26(usage: Usage):
     res = update_usage(cursor, usage.equip_id, usage.start_date, usage.end_date, usage.purpose, usage.member_id)
     if not res:
@@ -338,7 +338,7 @@ def problem26(usage: Usage):
     else:
         return res
 
-@app.post("27")
+@app.post("/27")
 def problem27(usage: Usage):
     res = delete_usage(cursor, usage.equip_id, usage.member_id)
     if not res:

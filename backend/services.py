@@ -19,7 +19,7 @@ def get_lab_member(cursor, fname: str, lname: str):
     cursor.execute("{CALL Get_Lab_Member (?, ?)}", (fname, lname))
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 #tested and works
 def insert_lab_member(cursor, fname: str, lname: str, mtype: str, join_date) -> bool:
@@ -57,7 +57,7 @@ def get_ext_collab(cursor, ext_collab_id: int):
     cursor.execute("{CALL Get_Ext_Collab (?)}", ext_collab_id)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_ext_collab(cursor, ext_collab_id: int, inst_affil: str, bio: str):
     cursor.execute("{CALL Insert_Lab_Member (?, ?, ?)}", (ext_collab_id, inst_affil, bio))
@@ -82,7 +82,7 @@ def get_student(cursor, student_member_id: int):
     cursor.execute("{CALL Get_Student (?)}", student_member_id)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_student(cursor, student_member_id: int, academic_level: str):
     cursor.execute("{CALL Insert_Student (?, ?)}", (student_member_id, academic_level))
@@ -107,7 +107,7 @@ def get_major(cursor, student_member_id: int):
     cursor.execute("{CALL Get_Major (?)}", student_member_id)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_major(cursor, student_member_id: int, major: str):
     cursor.execute("{CALL Insert_Major (?, ?)}", (student_member_id, major))
@@ -132,7 +132,7 @@ def get_faculty(cursor, fac_id: int):
     cursor.execute("{CALL Get_Faculty (?)}", fac_id)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_faculty(cursor, fac_id: int, department: str)-> pyodbc.Row:
     cursor.execute("{CALL Insert_Faculty (?, ?)}", (fac_id, department))
@@ -157,7 +157,7 @@ def get_project(cursor, project_title: str):
     cursor.execute("{CALL Get_Project (?)}", project_title)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_project(cursor, project_title: str, proj_start_date, proj_end_date, proj_expected_duration: str, proj_status: str, fac_id: int):
 
@@ -228,7 +228,7 @@ def get_equipment(cursor, equipment_name: str):
     cursor.execute("{CALL Get_Equipment (?)}", equipment_name)
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_equipment(cursor, equip_type: str, equipment_name: str, purchase_date, equip_status: str):
     cursor.execute("{CALL Insert_Equipment (?, ?, ?, ?)}", (equip_type, equipment_name, purchase_date, equip_status))
@@ -255,7 +255,7 @@ def get_usage(cursor, equip_id: int, lab_member_id: int):
     cursor.execute("{CALL Get_Usage (?, ?)}", (equip_id, lab_member_id))
 
     rows = fetchall_as_dict(cursor)
-    return rows[0]
+    return rows
 
 def insert_usage(cursor, equip_id: int, use_start_date, use_end_date,
                  purpose_of_use: str, lab_member_id: int):
